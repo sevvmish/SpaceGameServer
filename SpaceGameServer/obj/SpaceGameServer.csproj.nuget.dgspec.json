@@ -1,0 +1,80 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\NONandroid\\SpaceGameServer\\SpaceGameServer\\SpaceGameServer.csproj": {}
+  },
+  "projects": {
+    "D:\\NONandroid\\SpaceGameServer\\SpaceGameServer\\SpaceGameServer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\NONandroid\\SpaceGameServer\\SpaceGameServer\\SpaceGameServer.csproj",
+        "projectName": "SpaceGameServer",
+        "projectPath": "D:\\NONandroid\\SpaceGameServer\\SpaceGameServer\\SpaceGameServer.csproj",
+        "packagesPath": "C:\\Users\\darkysha\\.nuget\\packages\\",
+        "outputPath": "D:\\NONandroid\\SpaceGameServer\\SpaceGameServer\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\darkysha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[2.1.11, )"
+            },
+            "NetCoreServer": {
+              "target": "Package",
+              "version": "[6.2.0, )"
+            },
+            "Portable.BouncyCastle": {
+              "target": "Package",
+              "version": "[1.9.0, )"
+            },
+            "protobuf-net": {
+              "target": "Package",
+              "version": "[3.1.17, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

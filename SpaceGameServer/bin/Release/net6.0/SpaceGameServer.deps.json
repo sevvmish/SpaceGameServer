@@ -1,0 +1,107 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "SpaceGameServer/1.0.0": {
+        "dependencies": {
+          "MySqlConnector": "2.1.11",
+          "NetCoreServer": "6.2.0",
+          "Portable.BouncyCastle": "1.9.0",
+          "protobuf-net": "3.1.17"
+        },
+        "runtime": {
+          "SpaceGameServer.dll": {}
+        }
+      },
+      "MySqlConnector/2.1.11": {
+        "runtime": {
+          "lib/net6.0/MySqlConnector.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.11.0"
+          }
+        }
+      },
+      "NetCoreServer/6.2.0": {
+        "runtime": {
+          "lib/net6.0/NetCoreServer.dll": {
+            "assemblyVersion": "6.2.0.0",
+            "fileVersion": "6.2.0.0"
+          }
+        }
+      },
+      "Portable.BouncyCastle/1.9.0": {
+        "runtime": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "assemblyVersion": "1.9.0.0",
+            "fileVersion": "1.9.0.1"
+          }
+        }
+      },
+      "protobuf-net/3.1.17": {
+        "dependencies": {
+          "protobuf-net.Core": "3.1.17"
+        },
+        "runtime": {
+          "lib/net5.0/protobuf-net.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.1.17.6991"
+          }
+        }
+      },
+      "protobuf-net.Core/3.1.17": {
+        "runtime": {
+          "lib/net5.0/protobuf-net.Core.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.1.17.6991"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SpaceGameServer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MySqlConnector/2.1.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JTWIkFDz0uQhXKLjd53t2zeZn84aGuxCzRRe5NYOInuThRa6OrtdN/iEob2+GYAJeH2f4m42wdmunjT5Y02lIA==",
+      "path": "mysqlconnector/2.1.11",
+      "hashPath": "mysqlconnector.2.1.11.nupkg.sha512"
+    },
+    "NetCoreServer/6.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QQGs4YlGhE3dC3IZbEiNBN/ckUqdKdl8URQDDpLGQfW7Qu+oJ1bBG071ULg7z4ti3khdV+DHGo7+8NLCCD8yoQ==",
+      "path": "netcoreserver/6.2.0",
+      "hashPath": "netcoreserver.6.2.0.nupkg.sha512"
+    },
+    "Portable.BouncyCastle/1.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eZZBCABzVOek+id9Xy04HhmgykF0wZg9wpByzrWN7q8qEI0Qen9b7tfd7w8VA3dOeesumMG7C5ZPy0jk7PSRHw==",
+      "path": "portable.bouncycastle/1.9.0",
+      "hashPath": "portable.bouncycastle.1.9.0.nupkg.sha512"
+    },
+    "protobuf-net/3.1.17": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lN6JWutKqn1Aq/hI1BXcR7VbgHgcerUTMav2rTenflE28GWC2y1JoF9XPkoQdCkf24olStY00r68PHJhUpWFaw==",
+      "path": "protobuf-net/3.1.17",
+      "hashPath": "protobuf-net.3.1.17.nupkg.sha512"
+    },
+    "protobuf-net.Core/3.1.17": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6PK/ZswVXHdUfMFEv9bI+jkNipuy9ifKRKRBAZlqFrbGXOwvREdMA2H53GTqTc6728PMA0VGvsbnjPAQ0Cx59A==",
+      "path": "protobuf-net.core/3.1.17",
+      "hashPath": "protobuf-net.core.3.1.17.nupkg.sha512"
+    }
+  }
+}

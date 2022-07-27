@@ -1,0 +1,240 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "MySqlConnector/2.1.11": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/MySqlConnector.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/MySqlConnector.dll": {}
+        }
+      },
+      "NetCoreServer/6.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/NetCoreServer.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/NetCoreServer.dll": {}
+        }
+      },
+      "Portable.BouncyCastle/1.9.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
+        }
+      },
+      "protobuf-net/3.1.17": {
+        "type": "package",
+        "dependencies": {
+          "protobuf-net.Core": "3.1.17"
+        },
+        "compile": {
+          "lib/net5.0/protobuf-net.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/protobuf-net.dll": {}
+        }
+      },
+      "protobuf-net.Core/3.1.17": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/protobuf-net.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/protobuf-net.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MySqlConnector/2.1.11": {
+      "sha512": "JTWIkFDz0uQhXKLjd53t2zeZn84aGuxCzRRe5NYOInuThRa6OrtdN/iEob2+GYAJeH2f4m42wdmunjT5Y02lIA==",
+      "type": "package",
+      "path": "mysqlconnector/2.1.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net45/MySqlConnector.dll",
+        "lib/net45/MySqlConnector.xml",
+        "lib/net461/MySqlConnector.dll",
+        "lib/net461/MySqlConnector.xml",
+        "lib/net471/MySqlConnector.dll",
+        "lib/net471/MySqlConnector.xml",
+        "lib/net5.0/MySqlConnector.dll",
+        "lib/net5.0/MySqlConnector.xml",
+        "lib/net6.0/MySqlConnector.dll",
+        "lib/net6.0/MySqlConnector.xml",
+        "lib/netcoreapp3.1/MySqlConnector.dll",
+        "lib/netcoreapp3.1/MySqlConnector.xml",
+        "lib/netstandard2.0/MySqlConnector.dll",
+        "lib/netstandard2.0/MySqlConnector.xml",
+        "lib/netstandard2.1/MySqlConnector.dll",
+        "lib/netstandard2.1/MySqlConnector.xml",
+        "logo.png",
+        "mysqlconnector.2.1.11.nupkg.sha512",
+        "mysqlconnector.nuspec"
+      ]
+    },
+    "NetCoreServer/6.2.0": {
+      "sha512": "QQGs4YlGhE3dC3IZbEiNBN/ckUqdKdl8URQDDpLGQfW7Qu+oJ1bBG071ULg7z4ti3khdV+DHGo7+8NLCCD8yoQ==",
+      "type": "package",
+      "path": "netcoreserver/6.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0/NetCoreServer.dll",
+        "netcoreserver.6.2.0.nupkg.sha512",
+        "netcoreserver.nuspec"
+      ]
+    },
+    "Portable.BouncyCastle/1.9.0": {
+      "sha512": "eZZBCABzVOek+id9Xy04HhmgykF0wZg9wpByzrWN7q8qEI0Qen9b7tfd7w8VA3dOeesumMG7C5ZPy0jk7PSRHw==",
+      "type": "package",
+      "path": "portable.bouncycastle/1.9.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/BouncyCastle.Crypto.dll",
+        "lib/net40/BouncyCastle.Crypto.xml",
+        "lib/netstandard2.0/BouncyCastle.Crypto.dll",
+        "lib/netstandard2.0/BouncyCastle.Crypto.xml",
+        "portable.bouncycastle.1.9.0.nupkg.sha512",
+        "portable.bouncycastle.nuspec"
+      ]
+    },
+    "protobuf-net/3.1.17": {
+      "sha512": "lN6JWutKqn1Aq/hI1BXcR7VbgHgcerUTMav2rTenflE28GWC2y1JoF9XPkoQdCkf24olStY00r68PHJhUpWFaw==",
+      "type": "package",
+      "path": "protobuf-net/3.1.17",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/protobuf-net.dll",
+        "lib/net461/protobuf-net.xml",
+        "lib/net5.0/protobuf-net.dll",
+        "lib/net5.0/protobuf-net.xml",
+        "lib/netcoreapp3.1/protobuf-net.dll",
+        "lib/netcoreapp3.1/protobuf-net.xml",
+        "lib/netstandard2.0/protobuf-net.dll",
+        "lib/netstandard2.0/protobuf-net.xml",
+        "lib/netstandard2.1/protobuf-net.dll",
+        "lib/netstandard2.1/protobuf-net.xml",
+        "protobuf-net.3.1.17.nupkg.sha512",
+        "protobuf-net.nuspec",
+        "protobuf-net.png"
+      ]
+    },
+    "protobuf-net.Core/3.1.17": {
+      "sha512": "6PK/ZswVXHdUfMFEv9bI+jkNipuy9ifKRKRBAZlqFrbGXOwvREdMA2H53GTqTc6728PMA0VGvsbnjPAQ0Cx59A==",
+      "type": "package",
+      "path": "protobuf-net.core/3.1.17",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/protobuf-net.Core.dll",
+        "lib/net461/protobuf-net.Core.xml",
+        "lib/net5.0/protobuf-net.Core.dll",
+        "lib/net5.0/protobuf-net.Core.xml",
+        "lib/netcoreapp3.1/protobuf-net.Core.dll",
+        "lib/netcoreapp3.1/protobuf-net.Core.xml",
+        "lib/netstandard2.0/protobuf-net.Core.dll",
+        "lib/netstandard2.0/protobuf-net.Core.xml",
+        "lib/netstandard2.1/protobuf-net.Core.dll",
+        "lib/netstandard2.1/protobuf-net.Core.xml",
+        "protobuf-net.core.3.1.17.nupkg.sha512",
+        "protobuf-net.core.nuspec",
+        "protobuf-net.png"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "MySqlConnector >= 2.1.11",
+      "NetCoreServer >= 6.2.0",
+      "Portable.BouncyCastle >= 1.9.0",
+      "protobuf-net >= 3.1.17"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\darkysha\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\NONandroid\\SpaceGameServer\\SpaceGameServer\\SpaceGameServer.csproj",
+      "projectName": "SpaceGameServer",
+      "projectPath": "D:\\NONandroid\\SpaceGameServer\\SpaceGameServer\\SpaceGameServer.csproj",
+      "packagesPath": "C:\\Users\\darkysha\\.nuget\\packages\\",
+      "outputPath": "D:\\NONandroid\\SpaceGameServer\\SpaceGameServer\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\darkysha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "dependencies": {
+          "MySqlConnector": {
+            "target": "Package",
+            "version": "[2.1.11, )"
+          },
+          "NetCoreServer": {
+            "target": "Package",
+            "version": "[6.2.0, )"
+          },
+          "Portable.BouncyCastle": {
+            "target": "Package",
+            "version": "[1.9.0, )"
+          },
+          "protobuf-net": {
+            "target": "Package",
+            "version": "[3.1.17, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
