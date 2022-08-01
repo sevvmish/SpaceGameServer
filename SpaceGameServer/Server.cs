@@ -6,24 +6,29 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
 using NetCoreServer;
-
+using System.Collections.Concurrent;
+using LiteNetLib;
+using LiteNetLib.Utils;
 
 namespace SpaceGameServer
 {
-    class Server
+    public class Server
     {
-        public static Dictionary<string, byte[]> Sessions = new Dictionary<string, byte[]>();
+        public static Dictionary<string, byte[]> IncomingPlayersNetworkSecurity = new Dictionary<string, byte[]>();
+        public static ConcurrentDictionary<Socket, int> d = new ConcurrentDictionary<Socket, int>();
+
         //UDP     
-        private const int PORT_UDP = 2325;
+        public const int PORT_UDP = 2301;
         public static UDPServerConnector ServerUDP;
+        public static TCPServer ServerTCP;
 
         //TCP
         public static ManualResetEvent allDone = new ManualResetEvent(false);
         private static IPAddress ipaddress_tcp;
         private static IPEndPoint localendpoint_tcp;
         private static Socket socket_tcp;
-        public const int PORT_TCP = 2328;        
-        private const int max_connections = 10000;
+        public const int PORT_TCP = 2300;        
+       
 
         //General
         public static HashSet<EndPoint> UDPClientsENDPoints = new HashSet<EndPoint>();
@@ -32,59 +37,30 @@ namespace SpaceGameServer
         //INITIAL STARTER FOR TCP AND UDP
         public static void Server_init()
         {
+            
             //init UDP
             Task.Run(() =>
             {
                 ServerUDP = new UDPServerConnector(IPAddress.Any, PORT_UDP);
                 ServerUDP.Start();
             });
+            
 
             //init TCP
-            Server_init_TCP();
+            Task.Run(() =>
+            {
+                ServerTCP = new TCPServer(IPAddress.Any, PORT_TCP);
+                ServerTCP.Start();
+            });
 
         }
 
-        //START FOR TCP
-        public static void Server_init_TCP()
-        {
-            //TCP config===================================
-            ipaddress_tcp = IPAddress.Any;
-            localendpoint_tcp = new IPEndPoint(ipaddress_tcp, PORT_TCP);
-            socket_tcp = new Socket(ipaddress_tcp.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            Console.WriteLine(DateTime.Now + ": " + "game server TCP initiated");
-
-            try
-            {
-                socket_tcp.Bind(localendpoint_tcp);
-                socket_tcp.Listen(max_connections);
-
-                while (true)
-                {
-                    // Set the event to nonsignaled state.  
-                    allDone.Reset();
-
-                    socket_tcp.BeginAccept(new AsyncCallback(AcceptCallbackTCP), socket_tcp);
-
-                    allDone.WaitOne();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("==============ERROR================\n" + ex + "\n" + DateTime.Now + "\n" + "==================ERROR_END===========\n");
-            }
-            //TCP config===================================
-        }
-
-
-
-
+  
         public static Task SendDataUDP(EndPoint ipEnd, string data)
         {
             try
             {
-
                 ServerUDP.Send(ipEnd, data);
-
             }
             catch (Exception ex)
             {
@@ -97,9 +73,7 @@ namespace SpaceGameServer
         {
             try
             {
-
                 ServerUDP.Send(ipEnd, data);
-
             }
             catch (Exception ex)
             {
@@ -112,7 +86,6 @@ namespace SpaceGameServer
         {
             try
             {
-
                 ServerUDP.Send(ipEnd, data);
                 await Task.Delay(Starter.TICKi);
                 ServerUDP.Send(ipEnd, data);
@@ -122,54 +95,7 @@ namespace SpaceGameServer
             catch (Exception ex)
             {
                 Console.WriteLine("==============ERROR================\n" + ex + "\n" + DateTime.Now + "\n" + "==================ERROR_END===========\n");
-            }
-            //return Task.CompletedTask;
-        }
-
-
-
-        public static void AcceptCallbackTCP(IAsyncResult ar)
-        {
-            try
-            {
-                // Signal the main thread to continue.  
-                allDone.Set();
-                Socket listener = (Socket)ar.AsyncState;
-                Socket handler = listener.EndAccept(ar);
-
-                // Create the state object.  
-                StateObject state = new StateObject();
-                state.workSocket = handler;
-                handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReadCallbackTCP), state);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("==============ERROR================\n" + ex + "\n" + DateTime.Now + "\n" + "==================ERROR_END===========\n");
-            }
-        }
-
-        public static void ReadCallbackTCP(IAsyncResult ar)
-        {
-            try
-            {
-                //raw_data_received_tcp.Clear();
-
-                StateObject state = (StateObject)ar.AsyncState;
-                Socket handler = state.workSocket;
-                int bytesRead = handler.EndReceive(ar);
-
-                if (bytesRead > 0)
-                {
-
-                    IncomingDataHadler.HandleIncomingTCP(bytesRead, handler, state.buffer);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("==============ERROR================\n" + ex + "\n" + DateTime.Now + "\n" + "==================ERROR_END===========\n");
-            }
-
+            }            
         }
 
 
@@ -177,11 +103,7 @@ namespace SpaceGameServer
         {
             try
             {
-
-                buffer_send_tcp = Encoding.UTF8.GetBytes(data);
-
-                // Begin sending the data to the remote device.  
-                handler.BeginSend(buffer_send_tcp, 0, buffer_send_tcp.Length, 0, new AsyncCallback(SendCallback), handler);
+                handler.SendAsync(Encoding.UTF8.GetBytes(data), SocketFlags.None);
             }
             catch (Exception ex)
             {
@@ -194,11 +116,7 @@ namespace SpaceGameServer
         {
             try
             {
-
-                buffer_send_tcp = data;
-
-                // Begin sending the data to the remote device.  
-                handler.BeginSend(buffer_send_tcp, 0, buffer_send_tcp.Length, 0, new AsyncCallback(SendCallback), handler);
+                handler.SendAsync(data, SocketFlags.None);
             }
             catch (Exception ex)
             {
@@ -207,47 +125,11 @@ namespace SpaceGameServer
             return Task.CompletedTask;
         }
 
-        private static void SendCallback(IAsyncResult ar)
-        {
-            try
-            {
-                // Retrieve the socket from the state object.  
-                Socket handler = (Socket)ar.AsyncState;
-
-                // Complete sending the data to the remote device.  
-                int bytesSent = handler.EndSend(ar);
-                //Console.WriteLine("Sent {0} bytes to client.", bytesSent);
-
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("==============ERROR================\n" + ex + "\n" + DateTime.Now + "\n" + "==================ERROR_END===========\n");
-            }
-        }
-        
-    }
-
-    // State object for reading client data asynchronously  
-    public class StateObject
-    {
-        // Size of receive buffer.  
-        public const int BufferSize = 2048;
-
-        // Receive buffer.  
-        public byte[] buffer = new byte[BufferSize];
-
-        // Received data string.
-        public StringBuilder sb = new StringBuilder();
-
-        // Client socket.
-        public Socket workSocket = null;
     }
 
 
-    class UDPServerConnector : UdpServer
+
+    public class UDPServerConnector : UdpServer
     {
 
         public UDPServerConnector(IPAddress address, int port) : base(address, port) { }
@@ -260,7 +142,6 @@ namespace SpaceGameServer
             {
                 Console.WriteLine(DateTime.Now + ": " + "game server UDP initiated");
                 ReceiveAsync();
-
             }
             catch (Exception ex)
             {
@@ -269,12 +150,30 @@ namespace SpaceGameServer
 
         }
 
+       
 
         protected override void OnReceived(EndPoint endpoint, byte[] buffer, long offset, long size)
         {
+            EventBasedNetListener netListener = new EventBasedNetListener();
+            NetManager m = new NetManager(netListener);
+            NetPacketProcessor netPacketProcessor = new NetPacketProcessor();
+
+            netListener.PeerConnectedEvent += (server) => {
+                Console.WriteLine($"Connected to server: {server}");
+            };
+
+            netListener.NetworkReceiveEvent += (server, reader, deliveryMethod) => {
+                byte[] t = new byte[] { };
+                reader.GetBytes(t, 0, reader.AvailableBytes);
+                Console.WriteLine(Encoding.UTF8.GetString(t));
+            };
+
+         
 
             if (size != 0)
-            {                
+            {
+                //Console.WriteLine(Encoding.UTF8.GetString(buffer, 0, (int)size));
+
                 byte[] t = new byte[(int)size];
 
                 for (int i = 0; i < (int)size; i++)
@@ -292,9 +191,65 @@ namespace SpaceGameServer
 
         protected override void OnError(SocketError error)
         {
-            Console.WriteLine($"Server caught an error with code {error} ");
+            Console.WriteLine("==============ERROR================\n" + error + "\n" + DateTime.Now + "\n" + "==================ERROR_END===========\n");
+        }
+    }
+
+
+    public class TCPSession : TcpSession
+    {
+        public TCPSession(TcpServer server) : base(server) { }
+
+        protected override void OnConnected()
+        {
+            Console.WriteLine($"{Id} connected!");
+            //SpaceGameServer.Server.d.TryAdd(Socket, 1);
         }
 
+        protected override void OnDisconnected()
+        {
+            Console.WriteLine($"{Id} disconnected!");
+            //int x = 0;
+            //SpaceGameServer.Server.d.TryRemove(Socket, out x);
+        }
+
+        protected override void OnReceived(byte[] buffer, long offset, long size)
+        {
+            IncomingDataHadler.HandleIncomingTCP((int)size, Socket, buffer);
+            
+            
+        }
+
+        protected override void OnError(SocketError error)
+        {
+            Console.WriteLine("==============ERROR================\n" + error + "\n" + DateTime.Now + "\n" + "==================ERROR_END===========\n");
+        }
+    }
+
+    public class TCPServer : TcpServer
+    {
+        public TCPServer(IPAddress address, int port) : base(address, port) { }
+
+        protected override TcpSession CreateSession() { return new TCPSession(this); }
+
+        protected override void OnStarted()
+        {
+            // Start receive datagrams
+            try
+            {
+                Console.WriteLine(DateTime.Now + ": " + "server TCP initiated");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("==============ERROR================\n" + ex + "\n" + DateTime.Now + "\n" + "==================ERROR_END===========\n");
+            }
+
+        }
+
+        protected override void OnError(SocketError error)
+        {
+            Console.WriteLine("==============ERROR================\n" + error + "\n" + DateTime.Now + "\n" + "==================ERROR_END===========\n");
+        }
     }
 
 }

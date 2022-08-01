@@ -19,3 +19,4 @@ D:\NONandroid\SpaceGameServer\SpaceGameServer\obj\Release\net6.0\refint\SpaceGam
 D:\NONandroid\SpaceGameServer\SpaceGameServer\obj\Release\net6.0\SpaceGameServer.pdb
 D:\NONandroid\SpaceGameServer\SpaceGameServer\obj\Release\net6.0\SpaceGameServer.genruntimeconfig.cache
 D:\NONandroid\SpaceGameServer\SpaceGameServer\obj\Release\net6.0\ref\SpaceGameServer.dll
+D:\NONandroid\SpaceGameServer\SpaceGameServer\bin\Release\net6.0\LiteNetLib.dll

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ACTvkMeVb3QdUHZVrh2WhSF+30ua2Awu+2PXc79yPEQFSHIDAq+0PKSJaTJ1i71VnOJe7xYg1d1xFN8LrHl9AQ==",
+  "dgSpecHash": "XWMWge9+tbZobAxTCZwGsRpq3Jfb2xJT5WL64fVLcPz6NxxgjNIAKpJqdcxc+wOnOgOaq6N0kGhP2YGcD27BRQ==",
   "success": true,
   "projectFilePath": "D:\\NONandroid\\SpaceGameServer\\SpaceGameServer\\SpaceGameServer.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\darkysha\\.nuget\\packages\\litenetlib\\0.9.5.2\\litenetlib.0.9.5.2.nupkg.sha512",
     "C:\\Users\\darkysha\\.nuget\\packages\\mysqlconnector\\2.1.11\\mysqlconnector.2.1.11.nupkg.sha512",
     "C:\\Users\\darkysha\\.nuget\\packages\\netcoreserver\\6.2.0\\netcoreserver.6.2.0.nupkg.sha512",
     "C:\\Users\\darkysha\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",

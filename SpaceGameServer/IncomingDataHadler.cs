@@ -115,29 +115,24 @@ namespace SpaceGameServer
                     return;
                 }
 
+                string PacketID = Encoding.UTF8.GetString(buffer, 0, 3);
 
-                if (!Server.Sessions.ContainsKey(Encoding.UTF8.GetString(buffer, 0, 5)))
-                {
+                Console.WriteLine(Encoding.UTF8.GetString(buffer, 0, bytesRead));
+                
+                if (!Server.IncomingPlayersNetworkSecurity.ContainsKey(PacketID))
+                {                    
                     packet_analyzer.StartSessionTCPInput(Encoding.UTF8.GetString(buffer, 0, bytesRead), handler);
+                    
                 }
                 else
                 {
-                    byte[] d = new byte[bytesRead];
-                    for (int i = 0; i < bytesRead; i++)
-                    {
-                        d[i] = buffer[i];
-                    }
+                   
+                    byte[] d = Encryption.TakeSomeToArrayFromTo(buffer, 3, bytesRead);
 
-                    Encryption.Decode(ref d, Server.Sessions[Encoding.UTF8.GetString(buffer, 0, 5)]);
-
-                    //string back_result = packet_analyzer.ProcessTCPPacket(Encoding.UTF8.GetString(d).Remove(0, 6), handler.RemoteEndPoint.ToString());
-
-                    //byte[] t = Encoding.UTF8.GetBytes(back_result);
-                    //Encryption.Encode(ref t, Server.Sessions[Encoding.UTF8.GetString(buffer, 0, 5)]);
-
-                    //Server.SendDataTCP(handler, t);
+                    Encryption.Decode(ref d, Server.IncomingPlayersNetworkSecurity[PacketID]);
+                    Console.WriteLine(Encoding.UTF8.GetString(d));
+                    
                 }
-
 
             }
             catch (Exception ex)
@@ -161,7 +156,9 @@ namespace SpaceGameServer
                     return;
                 }
 
-                string _key = Encoding.UTF8.GetString(buffer, 0, 5);
+                string _key = Encoding.UTF8.GetString(buffer, 0, 3);
+
+                //Console.WriteLine(Encoding.UTF8.GetString(buffer, 0, buffer.Length));
 
                 /*
                 if (server.Sessions.ContainsKey(_key))

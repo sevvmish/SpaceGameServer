@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading;
 
 
@@ -6,7 +7,8 @@ namespace SpaceGameServer
 {
     class Starter
     {
-        public const int TICKi = 60;
+        public const int TICKi = 100;
+        public const float TICKf = 0.1f;
 
         public const int PASS_MIN_LENGHT = 8;
         public const int PASS_MAX_LENGHT = 16;
@@ -23,6 +25,8 @@ namespace SpaceGameServer
             Thread.Sleep(2000);
 
             Server.Server_init();
+        
+            
 
             Console.WriteLine("ready to exit...");
             Console.ReadKey();

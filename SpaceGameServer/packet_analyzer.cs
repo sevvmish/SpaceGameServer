@@ -18,26 +18,30 @@ namespace SpaceGameServer
 
                 if (packet_data.Length >= 3 && (packet_data[0] + packet_data[1] + packet_data[2]) == "060")
                 {
-                    string code = Encryption.get_random_set_of_symb(5);
+                    string code = Encryption.get_random_set_of_symb(3);
                     Encryption session_Encryption = new Encryption();
                     Console.WriteLine(DateTime.Now + ": user requested Encryption from - " + player_socket.RemoteEndPoint.ToString());
                     Server.SendDataTCP(player_socket, $"0~6~0~{code}~{session_Encryption.publicKeyInString}");
 
                     if (!TemporarySessionCreator.ContainsKey(code))
+                        
                         TemporarySessionCreator.Add(code, session_Encryption);
                     Task.Run(() => CleanTempSession(code));
 
-                    return;                    
+                    return;
                 }
 
-                if (packet_data.Length >= 3 && (packet_data[0] + packet_data[1] + packet_data[2]) == "061" && TemporarySessionCreator.ContainsKey(packet_data[3]))
+                if (packet_data.Length >= 3 && (packet_data[0] + packet_data[1] + packet_data[2]) == "061")
                 {
-                    byte[] secret_key = TemporarySessionCreator[packet_data[3]].GetSecretKey(packet_data[4]);
-                    if (secret_key == null)
-                    {
-                        Console.WriteLine("secret key is null!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    
+                    if (!TemporarySessionCreator.ContainsKey(packet_data[3]))
+                    {                        
+                        return;
                     }
-                    Server.Sessions.Add(packet_data[3], secret_key);
+                                                            
+                    byte[] secret_key = TemporarySessionCreator[packet_data[3]].GetSecretKey(packet_data[4]);
+                                        
+                    Server.IncomingPlayersNetworkSecurity.Add(packet_data[3], secret_key);
                     TemporarySessionCreator[packet_data[3]].Dispose();
                     TemporarySessionCreator.Remove(packet_data[3]);
                     Console.WriteLine(DateTime.Now + ": user received Encryption and accepted - " + player_socket.RemoteEndPoint.ToString());
@@ -46,14 +50,19 @@ namespace SpaceGameServer
                     return;
                 }
 
-                if (packet_data.Length == 4 && (packet_data[0] + packet_data[1] + packet_data[2]) == "062" && Server.Sessions.ContainsKey(packet_data[3]))
+                if (packet_data.Length == 4 && (packet_data[0] + packet_data[1] + packet_data[2]) == "062")
                 {
-                    Server.Sessions.Remove(packet_data[3]);
+                    
+                    if (!Server.IncomingPlayersNetworkSecurity.ContainsKey(packet_data[3]))
+                    {
+                        return;
+                    }
+
+                    Server.IncomingPlayersNetworkSecurity.Remove(packet_data[3]);
                     Console.WriteLine(DateTime.Now + ": user removed from current Encryption - " + player_socket.RemoteEndPoint.ToString());
                     Server.SendDataTCP(player_socket, $"0~6~2~ok");
                     return;
                 }
-
             }
             catch (Exception ex)
             {
